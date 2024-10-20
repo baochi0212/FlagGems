@@ -4,8 +4,9 @@ import torch
 
 import flag_gems
 
-from .conftest import QUICK_MODE, TO_CPU
-
+#from conftest import QUICK_MODE, TO_CPU
+QUICK_MODE = False
+TO_CPU = False
 
 def SkipTorchVersion(skip_pattern):
     cmp = skip_pattern[0]

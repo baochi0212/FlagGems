@@ -3,14 +3,14 @@ import torch
 
 import flag_gems
 
-from .accuracy_utils import (
+from accuracy_utils import (
     FLOAT_DTYPES,
     REDUCTION_SHAPES,
     gems_assert_close,
     to_reference,
 )
-from .conftest import QUICK_MODE
-
+#from conftest import QUICK_MODE
+QUICK_MODE = False
 FLOAT_DTYPES = [torch.float32] if QUICK_MODE else FLOAT_DTYPES
 DIMS_LIST = [1] if QUICK_MODE else [0, 1, [0, 1], [1, 0]]
 KEEPDIM_DIMS = (
@@ -72,7 +72,7 @@ def test_accuracy_groupnorm(N, C, H, W, num_groups, dtype):
     gems_assert_close(res_in_grad, ref_in_grad, dtype, reduce_dim=group_size * HW)
     gems_assert_close(res_weight_grad, ref_weight_grad, dtype, reduce_dim=N * HW)
     gems_assert_close(res_bias_grad, ref_bias_grad, dtype, reduce_dim=N * HW)
-
+    print("output: ", res_out.shape)
 
 @pytest.mark.layer_norm
 @pytest.mark.native_layer_norm
@@ -286,3 +286,5 @@ def test_accuracy_vectornorm(shape, ord, dim, keepdim, dtype):
         res_out = torch.linalg.vector_norm(inp, ord, dim, keepdim)
 
     gems_assert_close(res_out, ref_out, dtype)
+if __name__ == "__main__":
+    test_accuracy_groupnorm(32, 64, 64, 64, 8, torch.float16)
