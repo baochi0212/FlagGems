@@ -2,7 +2,7 @@ import torch
 
 import flag_gems
 
-from .performance_utils import (
+from performance_utils import (
     FLOAT_DTYPES,
     POINTWISE_BATCH,
     REDUCTION_BATCH,
@@ -132,3 +132,6 @@ def test_perf_skip_rmsnorm():
     )
     bench.set_gems(gems_op)
     bench.run()
+
+if __name__ == "__main__":
+    test_perf_gelu_and_mul()
