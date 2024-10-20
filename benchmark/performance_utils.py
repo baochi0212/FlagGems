@@ -5,13 +5,13 @@ import triton
 
 import flag_gems
 
-from .conftest import CPU_MODE
+# from conftest import CPU_MODE
 
 WARMUP = 100
 REPETITION = 1000
 torch.backends.cuda.matmul.allow_tf32 = False
 
-
+CPU_MODE = False
 class Benchmark:
     def __init__(
         self,
@@ -102,7 +102,7 @@ class Benchmark:
                 )
 
 
-FLOAT_DTYPES = [torch.float16, torch.float32, torch.bfloat16]
+FLOAT_DTYPES = [torch.float16, torch.float32]
 INT_DTYPES = [torch.int16, torch.int32]
 
 
